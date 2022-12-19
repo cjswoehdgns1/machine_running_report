@@ -5,6 +5,11 @@ from return_sentence import return_similar_answer
 from fastapi import FastAPI
 from enum import Enum
 
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
+from time import time
+
+
 class ModelName(str, Enum):
     sentence_transformer = "sentence_transformer"
     # resnet = "resnet"
@@ -13,12 +18,15 @@ class ModelName(str, Enum):
 app = FastAPI()
 
 print("모델 준비 중")
-model, train_data  = train_sentences(200)
-print("모델 준비 완료")
+s = time()
+model, train_data  = train_sentences(5000)
+print("모델 준비 완료까지 {:.2f}초 소요됨".format(time() - s))
+
+templates = Jinja2Templates(directory="./")
 
 @app.get("/")
-def root():
-    return {"msg": "hello world!"}
+async def root(request: Request):
+	return templates.TemplateResponse("index.html",{"request":request})
 
 @app.get("/items/{item_id}")
 async def read_item(item_id: int, item_name: str):
