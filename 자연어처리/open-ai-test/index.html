@@ -18,7 +18,7 @@
 <body>
     <div class="chat-content">
         <div class="line">
-            <span class="chat-box">Give me Question you want</span>
+            <span class="chat-box">Give me question what you want</span>
         </div>
     </div>
     <div class="input-box">
@@ -39,8 +39,6 @@
         document.querySelector('.chat-content').insertAdjacentHTML('beforeend',
         template)
         
-        
-
         const configuration = new Configuration({
         apiKey: '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',
         });
@@ -61,6 +59,8 @@
             </div>`;
             document.querySelector('.chat-content').insertAdjacentHTML('beforeend',
             template)
+
+            document.querySelector("#input").value = "";
         });
 
     })
